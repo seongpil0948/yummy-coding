@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,19 +9,29 @@
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <p class="style3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+  <p class="style3">성필짱짱맨</p>
+  <!-- <p class="style3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p> -->
   <script>
     function paragraph(element) {
-      const array = element.innerText.split('')
+      // 최종으로 보여질 글자 성필짱짱맨
+      const targetArray = element.innerText.split('')
+      // 최종으로 보여지기 전 랜덤으로 표시될 글자
       const special = ['~', '@', '!', '#', '$', '%', '^', '&', '*']
+      // 애니메이션에서 제외될 글자
       const exception = [' ', '\n', '.', ',']
       const random = (min, max) => {
+        // random number between min and max
         return Math.floor(Math.random() * (max - min + 1) + min)
       }
-      
+
       const numArray = []
-      array.forEach(char => {
+      // 문자열과 동일한 길이의 랜덤 숫자 배열 생성
+      // numArray의 요소는 5 ~ 40 사이의 랜덤 숫자. 
+      // 0이 될때까지 감소하며 0이 되면 해당 글자가 최종 글자로 변경된다.
+      // 순차적으로 혹은 동시에 0이 되어 최종 글자가 한번에 표시되지 않기위해 랜덤 값을 사용한다. 
+      targetArray.forEach(char => {
         const num = random(5, 40)
         numArray.push(num)
       })
@@ -28,11 +39,13 @@
       let completeCount
       let newText
       const timer = setInterval(() => {
+        // 매 반복마다 newText를 초기화하고 completeCount를 0으로 초기화한다.
+        // completeCount는 최종문자열을 담은 newText의 길이와 numArray의 길이가 같아지면 애니메이션을 멈추기 위한 변수이다. 
         completeCount = 0
         newText = ''
         numArray.forEach((num, i) => {
-          if (exception.includes(array[i]) || numArray[i] === 0) {
-            newText += array[i]
+          if (exception.includes(targetArray[i]) || numArray[i] === 0) {
+            newText += targetArray[i]
             completeCount += 1
           } else {
             newText += special[numArray[i] % special.length]
@@ -49,4 +62,5 @@
     paragraph(p)
   </script>
 </body>
+
 </html>
